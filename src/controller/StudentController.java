@@ -101,11 +101,7 @@ public class StudentController {
         System.out.println("Nhập đường dẫn file để import data: ");
         importPath = in.nextLine();
         try {
-//            f.writeObjToFile(exportPath, model.getStudents());
-            if(importPath.contains(".csv"))
                 model.setStudents(f.importCSVFile(importPath));
-            else
-                System.out.println("Định dạng file không hợp lệ !!");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -133,6 +129,10 @@ public class StudentController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void search(int type, String search) {
+        
     }
 
 }

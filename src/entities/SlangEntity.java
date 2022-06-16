@@ -26,6 +26,11 @@ public class SlangEntity  implements Serializable {
         setDefinition(definition);
     }
 
+    public SlangEntity(SlangEntity s){
+        setWord(s.getWord());
+        setDefinition(s.getDefinition());
+    }
+
     public void scanSlang() {
         Scanner in = new Scanner(System.in);
         System.out.println("Nhập slang word: ");

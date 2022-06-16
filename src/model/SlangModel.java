@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public class SlangModel {
     ArrayList<SlangEntity> slangs = new ArrayList<SlangEntity>();
+    ArrayList<SlangEntity> historySlangs = new ArrayList<SlangEntity>();
+
 
     public ArrayList<SlangEntity> getSlangs() { return slangs; }
 
@@ -19,26 +21,42 @@ public class SlangModel {
         int indexSlang = slangs.indexOf(oldSlang);
         if(indexSlang != -1) {
             oldSlang = slangs.get(indexSlang);
-           
+            oldSlang.setWord(newSlang.getWord());
+            oldSlang.setDefinition(newSlang.getDefinition());
         }
     }
 
     public void delSlang(SlangEntity s) {
-
         slangs.remove(s);
     }
 
-    public SlangEntity findSlang(String id) {
-        SlangEntity slangFound = null;
+    public ArrayList<SlangEntity> findSlangs(int type,String search) {
+        ArrayList<SlangEntity> searchSlangs = new ArrayList<SlangEntity>();
         for (SlangEntity s: slangs) {
+            if(type == 0) { // word
+
+                if (s.getWord().contains(search)){
+                    searchSlangs.add(s);
+                }
+            }
+            else { // defination
+                if (s.getDefinition().contains(search)){
+                    searchSlangs.add(s);
+                }
+            }
+            historySlangs.add(s);
 
         }
-        return slangFound;
+        return searchSlangs;
     }
 
-    public void listSlangs() {
-        for(SlangEntity s: slangs) {
-            s.showSlang();
+    public SlangEntity findSlang(String search) {
+        SlangEntity slangFound = null;
+        for (SlangEntity s: slangs) {
+            if(s.getWord().equalsIgnoreCase(search)) {
+                slangFound = new SlangEntity(slangFound);
+            }
         }
+        return slangFound;
     }
 }
