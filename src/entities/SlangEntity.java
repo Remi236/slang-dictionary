@@ -1,7 +1,8 @@
 package entities;
 
+import config.Config;
+
 import java.io.Serializable;
-import java.util.Scanner;
 
 public class SlangEntity  implements Serializable {
     private static final long serialVersionUID = -6500665823330706018L;
@@ -31,16 +32,8 @@ public class SlangEntity  implements Serializable {
         setDefinition(s.getDefinition());
     }
 
-    public void scanSlang() {
-        Scanner in = new Scanner(System.in);
-        System.out.println("Nhập slang word: ");
-        word = in.nextLine();
-        System.out.println("Nhập định nghĩa của slang word: ");
-        definition = in.nextLine();
-    }
-
-    public void showSlang() {
-        System.out.println("Slang word: "+ word);
-        System.out.println("Định nghĩa: "+ definition);
+    @Override
+    public String toString() {
+        return word + Config.PROPERTY_SEPARATOR  + definition;
     }
 }

@@ -14,8 +14,6 @@ public class FileHelper {
         try {
             String line;
             br = new BufferedReader(new FileReader(path));
-
-            // How to read file in java line by line?
             if(br.read() != -1) {
                 String headerLine = br.readLine();
                 while ((line = br.readLine()) != null) {
@@ -40,14 +38,10 @@ public class FileHelper {
         try {
             fileWriter = new FileWriter(path);
             for (SlangEntity s : studentsArray) {
-                fileWriter.append(s.getWord());
-                fileWriter.append(Config.PROPERTY_SEPARATOR);
-                fileWriter.append(s.getDefinition());
+                fileWriter.append(s.toString());
                 fileWriter.append(Config.NEW_LINE_SEPARATOR);
             }
-
             System.out.println("data was write to file successfully !!!");
-
         } catch (Exception e) {
             System.out.println("Error in write file !!!");
             e.printStackTrace();

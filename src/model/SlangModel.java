@@ -1,30 +1,30 @@
 package model;
 
+import config.Config;
 import entities.SlangEntity;
+import helper.FileHelper;
+import helper.RandomHelper;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class SlangModel {
     ArrayList<SlangEntity> slangs = new ArrayList<SlangEntity>();
     ArrayList<SlangEntity> historySlangs = new ArrayList<SlangEntity>();
-    ArrayList<SlangEntity> searchSlangs = new ArrayList<SlangEntity>();
-
+    FileHelper f = new FileHelper();
 
     public ArrayList<SlangEntity> getSlangs() { return slangs; }
 
     public void setSlangs(ArrayList<SlangEntity> slangs) { this.slangs = slangs; }
 
-    public void addSlang(SlangEntity s) {
-        slangs.add(s);
-    }
+    public ArrayList<SlangEntity> getHistorySlangs() { return historySlangs; }
+
+
+    public void addSlang(SlangEntity s) { slangs.add(s); }
 
     public void updateSlang(SlangEntity oldSlang, SlangEntity newSlang) {
-        int indexSlang = slangs.indexOf(oldSlang);
-        if(indexSlang != -1) {
-            oldSlang = slangs.get(indexSlang);
-            oldSlang.setWord(newSlang.getWord());
-            oldSlang.setDefinition(newSlang.getDefinition());
-        }
+        oldSlang.setWord(newSlang.getWord());
+        oldSlang.setDefinition(newSlang.getDefinition());
     }
 
     public void delSlang(SlangEntity s) {
@@ -36,19 +36,30 @@ public class SlangModel {
         for (SlangEntity s: slangs) {
             if(type == 0) { // word
                 if (s.getWord().contains(search)){
-                    searchSlangs.add(s);
                     isHave = !isHave;
                 }
             }
             else { // defination
                 if (s.getDefinition().contains(search)){
-                    searchSlangs.add(s);
                     isHave = !isHave;
                 }
             }
             historySlangs.add(s);
         }
         return isHave;
+    }
+
+    public SlangEntity randomSlang() {
+        int index = RandomHelper.randomIndexArrayList(slangs.size());
+        return slangs.get(index);
+    }
+
+    public ArrayList<SlangEntity> getDataQuiz() {
+        ArrayList<SlangEntity> data = new ArrayList<SlangEntity>();
+        for (int i = 0; i < Config.MAX_CHOISES; i++) {
+            data.add(randomSlang());
+        }
+        return data;
     }
 
     public SlangEntity findSlang(String search) {
@@ -61,9 +72,19 @@ public class SlangModel {
         return slangFound;
     }
 
-    public void showSearchSlang() {
-        for (SlangEntity s: searchSlangs) {
-           s.showSlang();
+    public void resetSlangs() {
+        try {
+            slangs = f.readDataFromFile(Config.RESET_DATA_FILE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadSlangs() {
+        try {
+            slangs = f.readDataFromFile(Config.DATA_FILE);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
