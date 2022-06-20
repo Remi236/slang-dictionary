@@ -131,8 +131,6 @@ public class StudentController {
         }
     }
 
-    public void search(int type, String search) {
-        
-    }
+
 
 }

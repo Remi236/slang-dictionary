@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class SlangModel {
     ArrayList<SlangEntity> slangs = new ArrayList<SlangEntity>();
     ArrayList<SlangEntity> historySlangs = new ArrayList<SlangEntity>();
+    ArrayList<SlangEntity> searchSlangs = new ArrayList<SlangEntity>();
 
 
     public ArrayList<SlangEntity> getSlangs() { return slangs; }
@@ -30,24 +31,24 @@ public class SlangModel {
         slangs.remove(s);
     }
 
-    public ArrayList<SlangEntity> findSlangs(int type,String search) {
-        ArrayList<SlangEntity> searchSlangs = new ArrayList<SlangEntity>();
+    public boolean findSlangs(int type,String search) {
+        boolean isHave = false;
         for (SlangEntity s: slangs) {
             if(type == 0) { // word
-
                 if (s.getWord().contains(search)){
                     searchSlangs.add(s);
+                    isHave = !isHave;
                 }
             }
             else { // defination
                 if (s.getDefinition().contains(search)){
                     searchSlangs.add(s);
+                    isHave = !isHave;
                 }
             }
             historySlangs.add(s);
-
         }
-        return searchSlangs;
+        return isHave;
     }
 
     public SlangEntity findSlang(String search) {
@@ -58,5 +59,11 @@ public class SlangModel {
             }
         }
         return slangFound;
+    }
+
+    public void showSearchSlang() {
+        for (SlangEntity s: searchSlangs) {
+           s.showSlang();
+        }
     }
 }
