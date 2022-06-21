@@ -6,11 +6,13 @@ import helper.FileHelper;
 import helper.RandomHelper;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class SlangModel {
+
     ArrayList<SlangEntity> slangs = new ArrayList<SlangEntity>();
     ArrayList<SlangEntity> historySlangs = new ArrayList<SlangEntity>();
+    ArrayList<SlangEntity> searchSlangs = new ArrayList<SlangEntity>();
+
     FileHelper f = new FileHelper();
 
     public ArrayList<SlangEntity> getSlangs() { return slangs; }
@@ -18,6 +20,8 @@ public class SlangModel {
     public void setSlangs(ArrayList<SlangEntity> slangs) { this.slangs = slangs; }
 
     public ArrayList<SlangEntity> getHistorySlangs() { return historySlangs; }
+
+    public ArrayList<SlangEntity> getSearchSlangs() { return searchSlangs; }
 
 
     public void addSlang(SlangEntity s) { slangs.add(s); }
@@ -44,6 +48,7 @@ public class SlangModel {
                     isHave = !isHave;
                 }
             }
+            searchSlangs.add(s);
             historySlangs.add(s);
         }
         return isHave;
@@ -72,12 +77,15 @@ public class SlangModel {
         return slangFound;
     }
 
-    public void resetSlangs() {
+    public boolean resetSlangs() {
+        boolean isReseted = true;
         try {
             slangs = f.readDataFromFile(Config.RESET_DATA_FILE);
         } catch (Exception e) {
             e.printStackTrace();
+            isReseted = false;
         }
+        return isReseted;
     }
 
     public void loadSlangs() {
