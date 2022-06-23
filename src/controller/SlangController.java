@@ -14,6 +14,8 @@ public class SlangController {
         model.loadSlangs();
     }
 
+    public ArrayList<SlangEntity> getSlangs() { return model.getSlangs(); }
+
     public boolean addSlang(SlangEntity addSlang) {
         boolean isAdded = true;
         SlangEntity foundSlang = model.findSlang(addSlang.getWord());
@@ -35,7 +37,7 @@ public class SlangController {
         }
         else {
             model.updateSlang(oldSlang, newSlang);
-            System.out.println("Đã cập nhật sinh viên !");
+            System.out.println("Đã cập nhật!");
         }
         return isUpdated;
     }
@@ -67,7 +69,7 @@ public class SlangController {
     public SlangEntity random(){
         SlangEntity ranSlang = new SlangEntity();
         if(model.getSlangs().size() == 0) {
-            System.out.println("Emty to random!!!");
+            System.out.println("Empty to random!!!");
         }
         else {
             ranSlang = model.randomSlang();
@@ -78,7 +80,7 @@ public class SlangController {
     public ArrayList<SlangEntity> showHistory() {
         ArrayList<SlangEntity> historySlang = new ArrayList<SlangEntity>();
         if(model.getHistorySlangs().size() == 0) {
-            System.out.println("Emty history!!!");
+            System.out.println("Empty history!!!");
         }
         else {
             historySlang = model.getHistorySlangs();
@@ -89,8 +91,12 @@ public class SlangController {
     public ArrayList<SlangEntity> quiz() {
         ArrayList<SlangEntity> data = model.getDataQuiz();
         if(data.size() == 0) {
-            System.out.println("Emty data!!!");
+            System.out.println("Empty data!!!");
         }
         return data;
+    }
+
+    public boolean verifyAnswer(SlangEntity quiz, SlangEntity answer, int type) {
+        return type == Config.QUIZ_TYPE_WORD ? quiz.getDefinition().equalsIgnoreCase(answer.getDefinition()) : quiz.getWord().equalsIgnoreCase(answer.getWord());
     }
 }

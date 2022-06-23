@@ -2,7 +2,7 @@ package config;
 
 public class Config {
     // FILE
-    public final static String DATA_FILE = "data.data";
+    public final static String DATA_FILE = "data.txt";
     public final static String RESET_DATA_FILE = "slang.txt";
     public final static String PROPERTY_SEPARATOR = "`";
     public final static String NEW_LINE_SEPARATOR = "\n";
@@ -11,7 +11,7 @@ public class Config {
     public static int INDEX_READER = 0;
 
     //  TABLE HELPER
-    public static final Object[] STUDENTS_HEADER_COLUMNS = {"Word", "Definication"};
+    public static final Object[] SLANG_HEADER_COLUMNS = {"Word", "Definition"};
 
     // ADD
     public static final String TITLE_ADD = "Add SLang Word";
@@ -32,5 +32,14 @@ public class Config {
     public static final String MESSAGE_EDIT_SUCCESS = "Deleted word Successfully!!";
 
     // APP
+    public static String APP_TITLE = "SlangWord Application";
     public static final int MAX_CHOISES = 4;
+    public static final int QUIZ_TYPE_WORD = 0;
+    public static final int QUIZ_TYPE_DEFINITION = 1;
+    public static final String MESSAGE_QUIZ_CORRECT = "Congratulation !! You have found the correct answer";
+    public static final String MESSAGE_QUIZ_INCORRECT = "Opp !! It's look like you have found the wrong answer. The answer is :";
+    public static final String ANSWER_PREFIX_A = "A. ";
+    public static final String ANSWER_PREFIX_B = "B. ";
+    public static final String ANSWER_PREFIX_C = "C. ";
+    public static final String ANSWER_PREFIX_D = "D. ";
 }
