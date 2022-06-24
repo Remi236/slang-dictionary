@@ -37,19 +37,23 @@ public class SlangModel {
 
     public boolean findSlangs(int type,String search) {
         boolean isHave = false;
+        searchSlangs = new ArrayList<SlangEntity>();
         for (SlangEntity s: slangs) {
             if(type == 0) { // word
                 if (s.getWord().contains(search)){
-                    isHave = !isHave;
+                    isHave = true;
+                    searchSlangs.add(s);
+                    historySlangs.add(s);
                 }
             }
             else { // defination
                 if (s.getDefinition().contains(search)){
-                    isHave = !isHave;
+                    isHave = true;
+                    searchSlangs.add(s);
+                    historySlangs.add(s);
                 }
             }
-            searchSlangs.add(s);
-            historySlangs.add(s);
+
         }
         return isHave;
     }

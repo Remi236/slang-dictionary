@@ -33,6 +33,7 @@ public class Config {
 
     // APP
     public static String APP_TITLE = "SlangWord Application";
+    public static String APP_HISTORY_TITLE = "SlangWord History";
     public static final int MAX_CHOISES = 4;
     public static final int QUIZ_TYPE_WORD = 0;
     public static final int QUIZ_TYPE_DEFINITION = 1;

@@ -59,10 +59,14 @@ public class SlangController {
     }
 
     public ArrayList<SlangEntity> search(int type, String query) {
-        ArrayList<SlangEntity> searchSlang = new ArrayList<SlangEntity>();
+        ArrayList<SlangEntity> searchSlang = null;
         if(model.findSlangs(type, query)) {
-                searchSlang = model.getSearchSlangs();
+            searchSlang = model.getSearchSlangs();
         }
+        else {
+            searchSlang = new ArrayList<SlangEntity>();
+        }
+        System.out.println(searchSlang.size());
         return searchSlang;
     }
 
