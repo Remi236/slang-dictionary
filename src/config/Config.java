@@ -37,10 +37,16 @@ public class Config {
     public static final int MAX_CHOISES = 4;
     public static final int QUIZ_TYPE_WORD = 0;
     public static final int QUIZ_TYPE_DEFINITION = 1;
+    public static final String MESSAGE_QUIZ_TYPE_WORD = "What is %s mean ?";
+    public static final String MESSAGE_QUIZ_TYPE_DEFINITION = "What is slang word for %s?";
     public static final String MESSAGE_QUIZ_CORRECT = "Congratulation !! You have found the correct answer";
-    public static final String MESSAGE_QUIZ_INCORRECT = "Opp !! It's look like you have found the wrong answer. The answer is :";
+    public static final String MESSAGE_QUIZ_INCORRECT = "Opp !! It's look like you have found the wrong answer. The answer is : %s";
     public static final String ANSWER_PREFIX_A = "A. ";
     public static final String ANSWER_PREFIX_B = "B. ";
     public static final String ANSWER_PREFIX_C = "C. ";
     public static final String ANSWER_PREFIX_D = "D. ";
+    public static final int PICK_A = 0;
+    public static final int PICK_B = 1;
+    public static final int PICK_C = 2;
+    public static final int PICK_D = 3;
 }

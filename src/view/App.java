@@ -2,6 +2,7 @@ package view;
 
 import config.Config;
 import controller.SlangController;
+import entities.SlangEntity;
 import helper.BindingSouceHelper;
 
 import javax.swing.*;
@@ -11,6 +12,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Vector;
 
 public class App extends JFrame{
@@ -45,10 +48,21 @@ public class App extends JFrame{
             return false;
         }
     };
+    SlangEntity quiz = null;
+    SlangEntity answer = null;
+    ArrayList<SlangEntity> dataQuiz = null;
+
     public void initTableBingdingSource() {
         model.setColumnIdentifiers(Config.SLANG_HEADER_COLUMNS);
         model = BindingSouceHelper.mapModel(model, sc.getSlangs());
         tbl_slangs.setModel(model);
+    }
+
+    public void quizUIHandle(boolean state) {
+        btn_pick_A.setEnabled(state);
+        btn_pick_B.setEnabled(state);
+        btn_pick_C.setEnabled(state);
+        btn_pick_D.setEnabled(state);
     }
 
     public App(String title) {
@@ -59,6 +73,7 @@ public class App extends JFrame{
         this.setLocationRelativeTo(null);
         JFrame thisFrame = this;
         initTableBingdingSource();
+        quizUIHandle(false);
         btn_search.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -70,7 +85,8 @@ public class App extends JFrame{
         btn_random.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                SlangEntity ranSlang = sc.random();
+                lb_random_slang.setText(ranSlang.getWord() +": "+ ranSlang.getDefinition());
             }
         });
         btn_reset.addActionListener(new ActionListener() {
@@ -107,31 +123,98 @@ public class App extends JFrame{
         btn_quiz.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                int type = cb_quiz.getSelectedIndex();
+                dataQuiz = sc.quiz();
+                quiz = dataQuiz.get(0);
+                Collections.shuffle(dataQuiz);
+                lb_noti.setText("");
+                if(type == Config.QUIZ_TYPE_WORD) {
+                    lb_quiz.setText(String.format(Config.MESSAGE_QUIZ_TYPE_WORD, quiz.getWord()));
+                    btn_pick_A.setText(Config.ANSWER_PREFIX_A + dataQuiz.get(0).getDefinition());
+                    btn_pick_B.setText(Config.ANSWER_PREFIX_B + dataQuiz.get(1).getDefinition());
+                    btn_pick_C.setText(Config.ANSWER_PREFIX_C + dataQuiz.get(2).getDefinition());
+                    btn_pick_D.setText(Config.ANSWER_PREFIX_D + dataQuiz.get(3).getDefinition());
+                }
+                else if(type == Config.QUIZ_TYPE_DEFINITION) {
+                    lb_quiz.setText(String.format(Config.MESSAGE_QUIZ_TYPE_DEFINITION, quiz.getDefinition()));
+                    btn_pick_A.setText(Config.ANSWER_PREFIX_A + dataQuiz.get(0).getWord());
+                    btn_pick_B.setText(Config.ANSWER_PREFIX_B + dataQuiz.get(1).getWord());
+                    btn_pick_C.setText(Config.ANSWER_PREFIX_C + dataQuiz.get(2).getWord());
+                    btn_pick_D.setText(Config.ANSWER_PREFIX_D + dataQuiz.get(3).getWord());
+                }
+                quizUIHandle(true);
             }
         });
         btn_pick_A.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                String answerText = btn_pick_A.getText().replace(Config.ANSWER_PREFIX_A,"");
+                System.out.println(answerText);
+                quizUIHandle(false);
+                answer = dataQuiz.get(Config.PICK_A);
+                String result = cb_quiz.getSelectedIndex() == Config.QUIZ_TYPE_WORD ? quiz.getDefinition() : quiz.getWord();
+                if(sc.verifyAnswer(quiz,answer, cb_quiz.getSelectedIndex())){
+                    System.out.println(true);
+                    lb_noti.setText(Config.MESSAGE_QUIZ_CORRECT);
+                }
+                else {
+                    System.out.println(false);
+                    lb_noti.setText(String.format(Config.MESSAGE_QUIZ_INCORRECT, result));
+                }
             }
         });
         btn_pick_B.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                String answerText = btn_pick_B.getText().replace(Config.ANSWER_PREFIX_B,"");
+                System.out.println(answerText);
+                quizUIHandle(false);
+                answer = dataQuiz.get(Config.PICK_B);
+                String result = cb_quiz.getSelectedIndex() == Config.QUIZ_TYPE_WORD ? quiz.getDefinition() : quiz.getWord();
+                if(sc.verifyAnswer(quiz,answer, cb_quiz.getSelectedIndex())){
+                    System.out.println(true);
+                    lb_noti.setText(Config.MESSAGE_QUIZ_CORRECT);
+                }
+                else {
+                    System.out.println(false);
+                    lb_noti.setText(String.format(Config.MESSAGE_QUIZ_INCORRECT, result));
+                }
             }
         });
         btn_pick_C.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                String answerText = btn_pick_C.getText().replace(Config.ANSWER_PREFIX_C,"");
+                System.out.println(answerText);
+                quizUIHandle(false);
+                answer = dataQuiz.get(Config.PICK_C);
+                String result = cb_quiz.getSelectedIndex() == Config.QUIZ_TYPE_WORD ? quiz.getDefinition() : quiz.getWord();
+                if(sc.verifyAnswer(quiz,answer, cb_quiz.getSelectedIndex())){
+                    System.out.println(true);
+                    lb_noti.setText(Config.MESSAGE_QUIZ_CORRECT);
+                }
+                else {
+                    System.out.println(false);
+                    lb_noti.setText(String.format(Config.MESSAGE_QUIZ_INCORRECT, result));
+                }
             }
         });
         btn_pick_D.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                String answerText = btn_pick_D.getText().replace(Config.ANSWER_PREFIX_D,"");
+                System.out.println(answerText);
+                quizUIHandle(false);
+                answer = dataQuiz.get(Config.PICK_D);
+                String result = cb_quiz.getSelectedIndex() == Config.QUIZ_TYPE_WORD ? quiz.getDefinition() : quiz.getWord();
+                if(sc.verifyAnswer(quiz,answer, cb_quiz.getSelectedIndex())){
+                    System.out.println(true);
+                    lb_noti.setText(Config.MESSAGE_QUIZ_CORRECT);
+                }
+                else {
+                    System.out.println(false);
+                    lb_noti.setText(String.format(Config.MESSAGE_QUIZ_INCORRECT, result));
+                }
             }
         });
         txt_search.getDocument().addDocumentListener(new DocumentListener() {
@@ -147,11 +230,11 @@ public class App extends JFrame{
 
             public void changed() {
                 if (txt_search.getText().equals("")){
-                    System.out.println(true);
+//                    System.out.println(true);
                     model = BindingSouceHelper.mapModel(model, sc.getSlangs());
                 }
                 else {
-                    System.out.println(false);
+//                    System.out.println(false);
                 }
 
             }
