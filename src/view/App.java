@@ -10,11 +10,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Vector;
 
 public class App extends JFrame{
     private JPanel appPanel;
@@ -125,22 +122,22 @@ public class App extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 int type = cb_quiz.getSelectedIndex();
                 dataQuiz = sc.quiz();
-                quiz = dataQuiz.get(0);
+                quiz = dataQuiz.get(Config.QUIZ_INDEX); // index == 0 => quiz
                 Collections.shuffle(dataQuiz);
-                lb_noti.setText("");
+                lb_noti.setText(Config.APP_EMPTY_STRING);
                 if(type == Config.QUIZ_TYPE_WORD) {
                     lb_quiz.setText(String.format(Config.MESSAGE_QUIZ_TYPE_WORD, quiz.getWord()));
-                    btn_pick_A.setText(Config.ANSWER_PREFIX_A + dataQuiz.get(0).getDefinition());
-                    btn_pick_B.setText(Config.ANSWER_PREFIX_B + dataQuiz.get(1).getDefinition());
-                    btn_pick_C.setText(Config.ANSWER_PREFIX_C + dataQuiz.get(2).getDefinition());
-                    btn_pick_D.setText(Config.ANSWER_PREFIX_D + dataQuiz.get(3).getDefinition());
+                    btn_pick_A.setText(Config.ANSWER_PREFIX_A + dataQuiz.get(Config.PICK_A).getDefinition());
+                    btn_pick_B.setText(Config.ANSWER_PREFIX_B + dataQuiz.get(Config.PICK_B).getDefinition());
+                    btn_pick_C.setText(Config.ANSWER_PREFIX_C + dataQuiz.get(Config.PICK_C).getDefinition());
+                    btn_pick_D.setText(Config.ANSWER_PREFIX_D + dataQuiz.get(Config.PICK_D).getDefinition());
                 }
                 else if(type == Config.QUIZ_TYPE_DEFINITION) {
                     lb_quiz.setText(String.format(Config.MESSAGE_QUIZ_TYPE_DEFINITION, quiz.getDefinition()));
-                    btn_pick_A.setText(Config.ANSWER_PREFIX_A + dataQuiz.get(0).getWord());
-                    btn_pick_B.setText(Config.ANSWER_PREFIX_B + dataQuiz.get(1).getWord());
-                    btn_pick_C.setText(Config.ANSWER_PREFIX_C + dataQuiz.get(2).getWord());
-                    btn_pick_D.setText(Config.ANSWER_PREFIX_D + dataQuiz.get(3).getWord());
+                    btn_pick_A.setText(Config.ANSWER_PREFIX_A + dataQuiz.get(Config.PICK_A).getWord());
+                    btn_pick_B.setText(Config.ANSWER_PREFIX_B + dataQuiz.get(Config.PICK_B).getWord());
+                    btn_pick_C.setText(Config.ANSWER_PREFIX_C + dataQuiz.get(Config.PICK_C).getWord());
+                    btn_pick_D.setText(Config.ANSWER_PREFIX_D + dataQuiz.get(Config.PICK_D).getWord());
                 }
                 quizUIHandle(true);
             }
@@ -148,7 +145,7 @@ public class App extends JFrame{
         btn_pick_A.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String answerText = btn_pick_A.getText().replace(Config.ANSWER_PREFIX_A,"");
+                String answerText = btn_pick_A.getText().replace(Config.ANSWER_PREFIX_A, Config.APP_EMPTY_STRING);
                 System.out.println(answerText);
                 quizUIHandle(false);
                 answer = dataQuiz.get(Config.PICK_A);
@@ -166,7 +163,7 @@ public class App extends JFrame{
         btn_pick_B.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String answerText = btn_pick_B.getText().replace(Config.ANSWER_PREFIX_B,"");
+                String answerText = btn_pick_B.getText().replace(Config.ANSWER_PREFIX_B, Config.APP_EMPTY_STRING);
                 System.out.println(answerText);
                 quizUIHandle(false);
                 answer = dataQuiz.get(Config.PICK_B);
@@ -184,7 +181,7 @@ public class App extends JFrame{
         btn_pick_C.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String answerText = btn_pick_C.getText().replace(Config.ANSWER_PREFIX_C,"");
+                String answerText = btn_pick_C.getText().replace(Config.ANSWER_PREFIX_C, Config.APP_EMPTY_STRING);
                 System.out.println(answerText);
                 quizUIHandle(false);
                 answer = dataQuiz.get(Config.PICK_C);
@@ -202,7 +199,7 @@ public class App extends JFrame{
         btn_pick_D.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String answerText = btn_pick_D.getText().replace(Config.ANSWER_PREFIX_D,"");
+                String answerText = btn_pick_D.getText().replace(Config.ANSWER_PREFIX_D,Config.APP_EMPTY_STRING);
                 System.out.println(answerText);
                 quizUIHandle(false);
                 answer = dataQuiz.get(Config.PICK_D);
@@ -229,7 +226,7 @@ public class App extends JFrame{
             }
 
             public void changed() {
-                if (txt_search.getText().equals("")){
+                if (txt_search.getText().equals(Config.APP_EMPTY_STRING)){
 //                    System.out.println(true);
                     model = BindingSouceHelper.mapModel(model, sc.getSlangs());
                 }

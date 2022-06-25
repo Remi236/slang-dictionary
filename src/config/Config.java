@@ -34,6 +34,7 @@ public class Config {
     // APP
     public static String APP_TITLE = "SlangWord Application";
     public static String APP_HISTORY_TITLE = "SlangWord History";
+    public static String APP_EMPTY_STRING = "SlangWord History";
     public static final int MAX_CHOISES = 4;
     public static final int QUIZ_TYPE_WORD = 0;
     public static final int QUIZ_TYPE_DEFINITION = 1;
@@ -45,6 +46,7 @@ public class Config {
     public static final String ANSWER_PREFIX_B = "B. ";
     public static final String ANSWER_PREFIX_C = "C. ";
     public static final String ANSWER_PREFIX_D = "D. ";
+    public static final int QUIZ_INDEX = 0;
     public static final int PICK_A = 0;
     public static final int PICK_B = 1;
     public static final int PICK_C = 2;
