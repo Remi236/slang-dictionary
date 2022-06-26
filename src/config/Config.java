@@ -31,6 +31,10 @@ public class Config {
     public static final String MESSAGE_EDIT_FAIL = "Deleted word Unsuccessfully!!";
     public static final String MESSAGE_EDIT_SUCCESS = "Deleted word Successfully!!";
 
+    // RESET
+    public static final String MESSAGE_RESET = "Reset Dictionary Successfully!!";
+    public static final String TITLE_RESET = "Reset Dictionary";
+
     // APP
     public static String APP_TITLE = "SlangWord Application";
     public static String APP_HISTORY_TITLE = "SlangWord History";

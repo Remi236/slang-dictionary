@@ -4,6 +4,7 @@ import config.Config;
 import controller.SlangController;
 import entities.SlangEntity;
 import helper.BindingSouceHelper;
+import helper.DataRowHelper;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -89,7 +90,9 @@ public class App extends JFrame{
         btn_reset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                sc.resetData();
+                model = BindingSouceHelper.mapModel(model, sc.getSlangs());
+                JOptionPane.showMessageDialog(thisFrame, Config.MESSAGE_RESET, Config.TITLE_RESET, JOptionPane.INFORMATION_MESSAGE);
             }
         });
         btn_show_history.addActionListener(new ActionListener() {
@@ -114,7 +117,24 @@ public class App extends JFrame{
         btn_del.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                JOptionPane dialog = new JOptionPane();
+                int selectionIndex = tbl_slangs.getSelectedRow();
+                if(selectionIndex != -1) {
+                    int result = dialog.showConfirmDialog(thisFrame, Config.MESSAGE_DEL_CONFIRM, Config.TITLE_DEL, JOptionPane.YES_NO_OPTION);
+                    if (result == dialog.OK_OPTION) {
+                        Object rowData = tbl_slangs.getModel().getValueAt(tbl_slangs.getSelectedRow(), 0); // id;
+                        if(sc.delSlang(rowData.toString())){
+                            model = BindingSouceHelper.mapModel(model, sc.getSlangs());
+                            dialog.showMessageDialog(thisFrame, Config.MESSAGE_DEL_SUCCESS, Config.TITLE_DEL, JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        else {
+                            dialog.showMessageDialog(thisFrame, Config.MESSAGE_DEL_FAIL, Config.TITLE_DEL, JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+                else {
+                    dialog.showMessageDialog(thisFrame, Config.MESSAGE_DEL_ERROR, Config.TITLE_DEL, JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
         btn_quiz.addActionListener(new ActionListener() {

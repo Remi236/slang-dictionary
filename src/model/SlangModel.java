@@ -75,7 +75,8 @@ public class SlangModel {
         SlangEntity slangFound = null;
         for (SlangEntity s: slangs) {
             if(s.getWord().equalsIgnoreCase(search)) {
-                slangFound = new SlangEntity(slangFound);
+                slangFound = new SlangEntity(s);
+                break;
             }
         }
         return slangFound;

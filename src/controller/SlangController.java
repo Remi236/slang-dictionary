@@ -43,12 +43,12 @@ public class SlangController {
 
     public boolean delSlang(String delWord) {
         boolean isDelete = true;
-        SlangEntity delSlang = model.findSlang(delWord);
-        if(delSlang == null) {
+        SlangEntity delSlangE = model.findSlang(delWord);
+        if(delSlangE == null) {
             isDelete = false;
         }
         else {
-            model.delSlang(delSlang);
+            model.delSlang(delSlangE);
         }
         return isDelete;
     }

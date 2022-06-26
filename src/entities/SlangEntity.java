@@ -33,6 +33,15 @@ public class SlangEntity  implements Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof SlangEntity)) {
+            return false;
+        }
+        SlangEntity other = (SlangEntity) o;
+        return word.equals(other.word) && definition.equals(other.definition);
+    }
+
+    @Override
     public String toString() {
         return word + Config.PROPERTY_SEPARATOR  + definition;
     }
