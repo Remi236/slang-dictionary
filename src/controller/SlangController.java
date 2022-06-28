@@ -17,7 +17,11 @@ public class SlangController {
 
     public boolean addSlang(SlangEntity addSlang) {
         boolean isAdded = true;
-        SlangEntity foundSlang = model.findSlang(addSlang.getWord());
+        SlangEntity foundSlang = null;
+        if(addSlang != null) {
+            foundSlang = model.findSlang(addSlang.getWord());
+            isAdded = true;
+        }
         if(foundSlang == null) {
             model.addSlang(addSlang);
         }

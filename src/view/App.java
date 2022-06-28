@@ -105,7 +105,20 @@ public class App extends JFrame{
         btn_add.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                AddSlang frame = new AddSlang();
+                JOptionPane dialog = new JOptionPane();
+                int result =  dialog.showOptionDialog(frame , frame.addPanel, Config.TITLE_ADD, JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null , new Object[]{}, null);
+                if(result == JOptionPane.CLOSED_OPTION) {
+                    if(frame.addSlang != null) {
+                        if(sc.addSlang(frame.addSlang)){
+                            model = BindingSouceHelper.mapModel(model, sc.getSlangs());
+                            dialog.showMessageDialog(thisFrame, Config.MESSAGE_ADD_SLANG_SUCCESS, Config.TITLE_ADD, JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        else {
+                            dialog.showMessageDialog(thisFrame, Config.MESSAGE_ADD_SLANG_FAIL, Config.TITLE_ADD, JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
             }
         });
         btn_update.addActionListener(new ActionListener() {
