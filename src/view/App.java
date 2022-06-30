@@ -124,7 +124,28 @@ public class App extends JFrame{
         btn_update.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                JOptionPane dialog = new JOptionPane();
+                int selectionIndex = tbl_slangs.getSelectedRow();
+                if(selectionIndex != -1) {
+                    SlangEntity updateDto = DataRowHelper.convertDataRowToEntity(model, tbl_slangs);
+                    UpdateSlang frame = new UpdateSlang(updateDto);
+                    int result =  dialog.showOptionDialog(frame , frame.updatePanel, Config.TITLE_EDIT, JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null , new Object[]{}, null);
+                    if(result == JOptionPane.CLOSED_OPTION) {
+                        if(frame.updateSlang != null) {
+                            Object rowData = tbl_slangs.getModel().getValueAt(tbl_slangs.getSelectedRow(), 0); // id;
+                            if(sc.editSlang(rowData.toString(), frame.updateSlang)){
+                                model = BindingSouceHelper.mapModel(model, sc.getSlangs());
+                                dialog.showMessageDialog(thisFrame, Config.MESSAGE_EDIT_SUCCESS, Config.TITLE_EDIT, JOptionPane.INFORMATION_MESSAGE);
+                            }
+                            else {
+                                dialog.showMessageDialog(thisFrame, Config.MESSAGE_EDIT_FAIL, Config.TITLE_EDIT, JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                    }
+                }
+                else {
+                    dialog.showMessageDialog(thisFrame, Config.MESSAGE_EDIT_ERROR, Config.TITLE_EDIT, JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
         btn_del.addActionListener(new ActionListener() {

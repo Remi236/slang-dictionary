@@ -27,8 +27,10 @@ public class SlangModel {
     public void addSlang(SlangEntity s) { slangs.add(s); }
 
     public void updateSlang(SlangEntity oldSlang, SlangEntity newSlang) {
+        int index = slangs.indexOf(oldSlang);
         oldSlang.setWord(newSlang.getWord());
         oldSlang.setDefinition(newSlang.getDefinition());
+        slangs.set(index, newSlang);
     }
 
     public void delSlang(SlangEntity s) {

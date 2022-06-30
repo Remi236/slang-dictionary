@@ -27,9 +27,9 @@ public class Config {
 
     // UPDATE
     public static final String TITLE_EDIT = "Update Word !!";
-    public static final String MESSAGE_EDIT_ERROR = "Fail On Edit Word";
-    public static final String MESSAGE_EDIT_FAIL = "Deleted word Unsuccessfully!!";
-    public static final String MESSAGE_EDIT_SUCCESS = "Deleted word Successfully!!";
+    public static final String MESSAGE_EDIT_ERROR = "Error on Edit Word";
+    public static final String MESSAGE_EDIT_FAIL = "Edit Word Unsuccessfully!!";
+    public static final String MESSAGE_EDIT_SUCCESS = "Edit Word Successfully!!";
 
     // RESET
     public static final String MESSAGE_RESET = "Reset Dictionary Successfully!!";
