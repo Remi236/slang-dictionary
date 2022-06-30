@@ -15,6 +15,8 @@ public class SlangController {
 
     public ArrayList<SlangEntity> getSlangs() { return model.getSlangs(); }
 
+    public void saveData() {model.saveData();}
+
     public boolean addSlang(SlangEntity addSlang) {
         boolean isAdded = true;
         SlangEntity foundSlang = null;

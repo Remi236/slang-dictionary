@@ -112,6 +112,7 @@ public class App extends JFrame{
                     if(frame.addSlang != null) {
                         if(sc.addSlang(frame.addSlang)){
                             model = BindingSouceHelper.mapModel(model, sc.getSlangs());
+                            sc.saveData();
                             dialog.showMessageDialog(thisFrame, Config.MESSAGE_ADD_SLANG_SUCCESS, Config.TITLE_ADD, JOptionPane.INFORMATION_MESSAGE);
                         }
                         else {
@@ -135,6 +136,7 @@ public class App extends JFrame{
                             Object rowData = tbl_slangs.getModel().getValueAt(tbl_slangs.getSelectedRow(), 0); // id;
                             if(sc.editSlang(rowData.toString(), frame.updateSlang)){
                                 model = BindingSouceHelper.mapModel(model, sc.getSlangs());
+                                sc.saveData();
                                 dialog.showMessageDialog(thisFrame, Config.MESSAGE_EDIT_SUCCESS, Config.TITLE_EDIT, JOptionPane.INFORMATION_MESSAGE);
                             }
                             else {
@@ -159,6 +161,7 @@ public class App extends JFrame{
                         Object rowData = tbl_slangs.getModel().getValueAt(tbl_slangs.getSelectedRow(), 0); // id;
                         if(sc.delSlang(rowData.toString())){
                             model = BindingSouceHelper.mapModel(model, sc.getSlangs());
+                            sc.saveData();
                             dialog.showMessageDialog(thisFrame, Config.MESSAGE_DEL_SUCCESS, Config.TITLE_DEL, JOptionPane.INFORMATION_MESSAGE);
                         }
                         else {

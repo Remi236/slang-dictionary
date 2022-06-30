@@ -3,6 +3,7 @@ package config;
 public class Config {
     // FILE
     public final static String DATA_FILE = "data.txt";
+    public final static String DATA_HISTORY_FILE = "history.txt";
     public final static String RESET_DATA_FILE = "slang.txt";
     public final static String PROPERTY_SEPARATOR = "`";
     public final static String NEW_LINE_SEPARATOR = "\n";

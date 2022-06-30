@@ -18,8 +18,10 @@ public class FileHelper {
                 String headerLine = br.readLine();
                 while ((line = br.readLine()) != null) {
                     String[] row = line.split(Config.PROPERTY_SEPARATOR);
-                    SlangEntity sData = new SlangEntity(row[0], row[1]);
-                    ds.add(sData);
+                    if(row.length > 1) {
+                        SlangEntity sData = new SlangEntity(row[0], row[1]);
+                        ds.add(sData);
+                    }
                 }
             }
         } catch (IOException e) {

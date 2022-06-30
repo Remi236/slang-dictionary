@@ -24,6 +24,16 @@ public class SlangModel {
     public ArrayList<SlangEntity> getSearchSlangs() { return searchSlangs; }
 
 
+    public void saveData() {
+        try {
+            f.writeDataToFile(Config.DATA_FILE, slangs);
+            f.writeDataToFile(Config.DATA_HISTORY_FILE, slangs);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void addSlang(SlangEntity s) { slangs.add(s); }
 
     public void updateSlang(SlangEntity oldSlang, SlangEntity newSlang) {
@@ -33,9 +43,7 @@ public class SlangModel {
         slangs.set(index, newSlang);
     }
 
-    public void delSlang(SlangEntity s) {
-        slangs.remove(s);
-    }
+    public void delSlang(SlangEntity s) { slangs.remove(s); }
 
     public boolean findSlangs(int type,String search) {
         boolean isHave = false;
